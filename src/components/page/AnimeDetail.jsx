@@ -1,9 +1,19 @@
-import Header from "./components/header"
-import { animeApi } from "./api/animeApi";
-import { useState } from "react";
+import React, { useEffect } from 'react'
+import Header from '../header'
+import { animeApi } from '../../api/animeApi'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 
-function App() {
+
+
+const AnimeDetail = () => {
+
+const {id} = useParams();
+
+
 
 
 const [inputSearch,setInputSearch] = useState('')
@@ -13,31 +23,6 @@ const [dataResultSearch,setDataResultSearch] = useState([]);
 const [isPanjang,setIsPanjang] = useState(false);
 
 
-  const handleApi = async ()=>{
-    const data = await animeApi();
-
-    const sameTitle = data.data.filter((para)=>{
-      return  Number(inputSearch) === para.mal_id;
-    })
-
-
-    if (sameTitle){
-       setDataResultSearch(sameTitle)
-        
-       
-    }
-
-    console.log(data.data)
-
-
-  // console.log(data.data[2].title);
-  
-      // console.log(sameTitle);
-      
-      // console.log(dataResultSearch)
-   
-
-  }
 
 // const handleClick = (e)=>{
 // e.preventDefault() 
@@ -48,19 +33,83 @@ const clickMore = ()=>{
 }
 
 
+  
+  const handleApi = async ()=>{
+    const data = await animeApi();
+
+    const sameId = data.data.filter((para)=>{
+      return  Number(id) === para.mal_id;
+    })
 
 
-// }
+    if (sameId){
+       setDataResultSearch(sameId)
+        
+       
+    }
 
- 
+    // console.log(data.data)
+
+
+  // console.log(data.data[2].title);
+  
+      // console.log(dataResultSearch);
+      
+      // console.log(dataResultSearch)
+   
+
+  }
+
+
+  useEffect(()=>{
+        handleApi();
+  },[])
+
+
+
+
+// animation///
+
+
+
+
+useGSAP(()=>{
+  
+
+      gsap.from('.tajuk',{
+        ease : 'back.inOut',
+     
+        duration : 1
+      })
+
+
+      gsap.from('.container-card',{
+        
+        y : 300
+
+      })
+
+},[dataResultSearch])
+
+
+
+
+
+
+
+
+
+
   return (
 
     <>
-    
-     <Header onChange={(e)=> setInputSearch(e.target.value)} value={inputSearch} onClick={handleApi}/>
+            <Header onClick={handleApi} onChange={(e)=>setInputSearch(e.target.value)} value={inputSearch}/>
 
 
-{dataResultSearch  && (
+           {
+
+
+                dataResultSearch  && (
 
   dataResultSearch.map((anime)=>{
 
@@ -69,9 +118,9 @@ const clickMore = ()=>{
 
       
 
- <h1 className="text-[60px]">{anime.title}</h1>
+ <h1 className="text-[60px] tajuk">{anime.title}</h1>
 
-<div className=" shadow-2xl  p-4 flex justify-around gap-4 w-[1200px] rounded-2xl">
+<div className=" shadow-2xl  p-4 flex justify-around gap-4 w-[1200px] rounded-2xl container-card">
 
 
           <div className=" flex flex-col items-center">
@@ -106,17 +155,21 @@ const clickMore = ()=>{
   })
 
 
-)}
+
+
+)
 
 
 
-    
-    
+
+           } 
+
+
+
+            
     </>
-     
-
 
   )
 }
 
-export default App
+export default AnimeDetail
