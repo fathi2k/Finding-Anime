@@ -10,7 +10,7 @@ function MainPage() {
   const dataAnime = async ()=>{
     const data = await animeApi();
     setAnimeData(data.data)
-  
+    console.log(data.data);
   }
 
 
@@ -18,6 +18,7 @@ function MainPage() {
 
   useEffect(()=>{
         dataAnime()  //boleh ignore kalau project kecik
+        
   },[])
 
 

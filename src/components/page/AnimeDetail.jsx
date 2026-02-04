@@ -21,7 +21,7 @@ const [dataResultSearch,setDataResultSearch] = useState([]);
 //untuk tengok ayat panjang//
 
 const [isPanjang,setIsPanjang] = useState(false);
-
+const [isLoading,setIsLoading] = useState(true)
 
 
 // const handleClick = (e)=>{
@@ -35,10 +35,18 @@ const clickMore = ()=>{
 
   
   const handleApi = async ()=>{
+    setIsLoading(true)
+
+      
+
+    try {
+
     const data = await animeApi();
 
+
     const sameId = data.data.filter((para)=>{
-      return  Number(id) === para.mal_id;
+      return Number(id) === para.mal_id
+    
     })
 
 
@@ -47,6 +55,15 @@ const clickMore = ()=>{
         
        
     }
+
+
+
+    }finally{
+
+
+      setIsLoading(false)
+    }
+
 
     // console.log(data.data)
 
@@ -57,7 +74,7 @@ const clickMore = ()=>{
       
       // console.log(dataResultSearch)
    
-
+        
   }
 
 
@@ -106,15 +123,25 @@ useGSAP(()=>{
             <Header onClick={handleApi} onChange={(e)=>setInputSearch(e.target.value)} value={inputSearch}/>
 
 
-           {
+           
 
 
-                dataResultSearch  && (
+{/* loading */}
+
+{isLoading && (
+  <div className='flex justify-center mt-[20%]'>
+<h1 className='text-[100px]'><img className='h-[200px] w-[200px]' src="https://media.istockphoto.com/id/1335247217/vector/loading-icon-vector-illustration.jpg?s=612x612&w=0&k=20&c=jARr4Alv-d5U3bCa8eixuX2593e1rDiiWnvJLgHCkQM="  /></h1>
+  </div>
+  
+)}
+
+
+               {   !isLoading && (
 
   dataResultSearch.map((anime)=>{
 
 
-    return  <div className="flex flex-col justify-center items-center  " >
+    return  <div className="flex flex-col justify-center items-center mt-[2%] " >
 
       
 
