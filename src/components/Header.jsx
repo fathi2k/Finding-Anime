@@ -2,7 +2,7 @@ import React from 'react'
 
 
 
-const Header = ({onClick,onChange,value}) => {
+const Header = ({onClick,searchQuery,setSearchQuery}) => {
 
 
 
@@ -18,7 +18,7 @@ const Header = ({onClick,onChange,value}) => {
 
                         <a  className='border px-4 rounded-2xl bg-white py-2' href="">Popular</a>
                         <div className=''>
-                         <input type="text" placeholder='Search for an anime...' className='border p-3 w-[400px] rounded-2xl bg-white' onChange={onChange} value={value} />
+                         <input type="text" placeholder='Search for an anime...' className='border p-3 w-[400px] rounded-2xl bg-white' onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} />
                         <button onClick={onClick}  className='border px-4 rounded-2xl bg-white py-3'>Search</button>
 
                         </div>

@@ -42,7 +42,7 @@ const clickMore = ()=>{
     try {
 
     const data = await animeApi();
-
+ console.log(data.data)
 
     const sameId = data.data.filter((para)=>{
       return Number(id) === para.mal_id
@@ -65,7 +65,7 @@ const clickMore = ()=>{
     }
 
 
-    // console.log(data.data)
+   
 
 
   // console.log(data.data[2].title);
@@ -120,7 +120,7 @@ useGSAP(()=>{
   return (
 
     <>
-            <Header onClick={handleApi} onChange={(e)=>setInputSearch(e.target.value)} value={inputSearch}/>
+            <Header onCz onChange={(e)=>setInputSearch(e.target.value)} value={inputSearch}/>
 
 
            
@@ -147,7 +147,7 @@ useGSAP(()=>{
 
  <h1 className="text-[60px] tajuk">{anime.title}</h1>
 
-<div className=" shadow-2xl  p-4 flex justify-around gap-4 w-[1200px] rounded-2xl container-card">
+<div className=" shadow-2xl  p-4 flex justify-around gap-4 w-[1200px] rounded-2xl container-card mb-[10%]">
 
 
           <div className=" flex flex-col items-center">
@@ -160,6 +160,7 @@ useGSAP(()=>{
 
 
             <div className=" text-2xl p-2 text-[30px] flex flex-col gap-6 ">
+              <p>Total Ep : <span className="text-gray-400" > {anime.episodes}</span> </p>
               <p>Release Year : <span className="text-gray-400" > {anime.year}</span> </p>
               <p>Rating: <span className="text-gray-400" >  {anime.rating} </span> </p>
               <p>Rank : <span className="text-gray-400" > {anime.rank} </span> </p>

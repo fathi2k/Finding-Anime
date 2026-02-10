@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
 
-const AnimeCard = ({src,onClick, idName}) => {
+const AnimeCard = ({src,onClick, idName,id}) => {
 
 // const handleClick = ()=>{
     
@@ -58,7 +58,7 @@ const mouseLeave = ()=>{
 
 
   return (
-    <div ref={cardRef} onClick={onClick} className= ' ' onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+    <div id={id} ref={cardRef} onClick={onClick} className= ' ' onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       <a href={`/detail/${idName}`}><img className='h-[400px] w-[400px]  rounded-[30px]'  src={src} /></a>
             
 
