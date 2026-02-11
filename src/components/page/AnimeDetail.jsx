@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../header'
+import Header from '../organism/Header'
 import { animeApi } from '../../api/animeApi'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'

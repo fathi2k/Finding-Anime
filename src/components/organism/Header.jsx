@@ -24,7 +24,7 @@ const Header = ({onClick,searchQuery,setSearchQuery}) => {
                         </div>
 
                         <a  className='border px-4 rounded-2xl bg-white py-2' href="/">Home</a>
-                        <a  className='border px-4 rounded-2xl bg-white py-2' href="">Upcoming</a>
+                        <a  className='border px-4 rounded-2xl bg-white py-2' href="/wishlist">Wishlist</a>
                    
                </div>
     </div>

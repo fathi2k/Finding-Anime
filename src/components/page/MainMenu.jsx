@@ -1,12 +1,19 @@
-import Header from "../header"
+import Header from "../organism/Header"
 import { animeApi } from "../../api/animeApi"
 import { useEffect,useState } from "react"
-import AnimeCard from "../AnimeCard";
+import AnimeCard from "../organism/AnimeCard";
 
 function MainPage() {
 
   const [animeData,setAnimeData] = useState([]);
-  const [searchInput,setSearchInput] = useState('')
+  const [searchInput,setSearchInput] = useState('');
+  const [animeWishList,setAnimeWishList] = useState([]);
+
+
+
+
+
+  useEffect(()=>{
 
   const dataAnime = async ()=>{
     const data = await animeApi();
@@ -17,7 +24,6 @@ function MainPage() {
 
 
 
-  useEffect(()=>{
         dataAnime()  //boleh ignore kalau project kecik
         
   },[])
@@ -35,9 +41,43 @@ const handleFilter = ()=>{
 }
 
 
+// --------------------ADD TO WISHLIST--------------//
+
+const handleAddToWish = (idName)=>{
+  const selectedAnime = animeData.find((cari)=>(
+        cari.mal_id === idName
+  ))
 
 
+  //if statment//
 
+    if (selectedAnime) {
+      // Get existing wishlist from localStorage
+      const existingWishlist = JSON.parse(localStorage.getItem('wishData') || '[]')
+      
+      // Check if already exists kena guna some sebab return booleon
+      const alreadyExists = existingWishlist.some((item) => item.mal_id === idName)
+      
+      if (!alreadyExists) {
+        // ✅ ADD to wishlist (not replace!)
+        const updatedWishlist = [...existingWishlist, selectedAnime]
+        localStorage.setItem('wishData', JSON.stringify(updatedWishlist))
+       
+      } else {
+        alert(`${selectedAnime.title} is already in your wishlist! 📝`)
+      }
+    }
+
+
+}
+
+
+//remove from wishlist//
+
+
+const removeWishList = ()=>{
+      
+}
 
 
  
@@ -76,7 +116,8 @@ return <AnimeCard key={para.mal_id} src={para.images.jpg.image_url} idName={para
             <AnimeCard 
               key={para.mal_id}  // ✅ Always add key in map!
               src={para.images.jpg.image_url} 
-              idName={para.mal_id}  
+              idName={para.mal_id} 
+              addToWishlist={handleAddToWish}
             />
           ))
         ) : (

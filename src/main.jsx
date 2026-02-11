@@ -4,6 +4,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainPage from './components/page/MainMenu.jsx'
 import AnimeDetail from './components/page/AnimeDetail.jsx'
+import Wishlist from './components/page/Wishlist.jsx'
 
 
 const routerr = createBrowserRouter([
@@ -14,6 +15,9 @@ const routerr = createBrowserRouter([
   },{
     path : '/detail/:id',
     element : <AnimeDetail/>
+  },{
+    path : '/wishlist',
+    element : <Wishlist/>
   }
 ])
 
